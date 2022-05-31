@@ -1,3 +1,4 @@
+const bootcamp = require('../models/bootcamp')
 getAllBootcamps = (req, res, next) => {
   res.status(200).send("all bootcamps");
 };

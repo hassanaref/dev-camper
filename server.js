@@ -9,6 +9,8 @@ connectDB();
 // route files
 const bootcamps = require("./routes/bootcamps.js");
 const app = express();
+//body parser
+app.use(express.json())
 // dev logger tool
 if(process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
