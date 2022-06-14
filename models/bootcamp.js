@@ -40,11 +40,9 @@ const bootcamp = new mongoose.Schema({
     type: {
       type: String,
       enum: ["Point"],
-      required: true,
     },
     coordinates: {
       type: [Number],
-      required: true,
       index: "2dsphere",
     },
     formattedAdsress: String,
@@ -58,9 +56,9 @@ const bootcamp = new mongoose.Schema({
     type: [String],
     required: true,
     enum: [
-      "web development",
-      "mobile development",
-      "ui/ux",
+      "Web Development",
+      "Mobile Development",
+      "UI/UX",
       "data science",
       "business",
       "other",
@@ -98,4 +96,4 @@ const bootcamp = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('bootcamp',bootcamp)
+module.exports = mongoose.model("bootcamp", bootcamp);
