@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require('morgan')
 const connectDB = require('./config/db')
+const colors = require('colors')
 // env config 
 dotenv.config({ path: "./config/config.env" });
 // connect to DataBase
@@ -19,5 +20,11 @@ if(process.env.NODE_ENV === 'development') {
 app.use("/v1/bootcamps", bootcamps);
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`server running is ${process.env.NODE_ENV} mode on port ${port}`);
+  console.log(`server running is ${process.env.NODE_ENV} mode on port ${port}`.yellow.bold);
 });
+
+//handle unhandled promises errors
+process.on('unhandledRejection', (err,promise)=>{
+  console.log(`eERROR:${err.message}`.red)
+  server.close(()=>{process.exit(1)})
+})
