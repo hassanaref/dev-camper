@@ -16,7 +16,7 @@ getOneBootcamp = async (req, res, next) => {
     }
     res.status(200).send(TargetBootcamp);
   } catch (error) {
-    res.status(400).json({ success: false });
+    next(error);
   }
 };
 
@@ -48,18 +48,17 @@ updateBootcamp = async (req, res, next) => {
   }
 };
 
-deleteBootcamp =async (req, res, next) => {
+deleteBootcamp = async (req, res, next) => {
   try {
-    const deletedBootcamp = await bootcamp.findByIdAndDelete(
-      req.params.id,
-    );
+    const deletedBootcamp = await bootcamp.findByIdAndDelete(req.params.id);
     if (!deletedBootcamp) {
       return res.status(400).json({ success: false });
     }
     res.status(200).json({});
   } catch (error) {
     res.status(400).json({ success: false });
-  }};
+  }
+};
 
 module.exports = {
   getAllBootcamps,
