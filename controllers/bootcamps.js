@@ -1,10 +1,11 @@
+const errorResponse = require("../utils/errorResponse");
 const bootcamp = require("../models/bootcamp");
 getAllBootcamps = async (req, res, next) => {
   try {
     const bootcamps = await bootcamp.find();
     res.status(200).json(bootcamps);
   } catch (error) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -12,11 +13,13 @@ getOneBootcamp = async (req, res, next) => {
   try {
     const TargetBootcamp = await bootcamp.findById(req.params.id);
     if (!TargetBootcamp) {
-      return res.status(400).json({ success: false });
+      return next(
+        new errorResponse(`bootcamp not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).send(TargetBootcamp);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -24,8 +27,8 @@ createBootcamp = async (req, res, next) => {
   try {
     const newBootcamp = await bootcamp.create(req.body);
     res.status(201).json({ success: true, data: newBootcamp });
-  } catch {
-    res.status(400).json({ success: false });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -40,11 +43,13 @@ updateBootcamp = async (req, res, next) => {
       }
     );
     if (!updatedBootcamp) {
-      return res.status(400).json({ success: false });
+      next(
+        new errorResponse(`bootcamp not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json(updatedBootcamp);
-  } catch (error) {
-    res.status(400).json({ success: false });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -52,11 +57,13 @@ deleteBootcamp = async (req, res, next) => {
   try {
     const deletedBootcamp = await bootcamp.findByIdAndDelete(req.params.id);
     if (!deletedBootcamp) {
-      return res.status(400).json({ success: false });
+      next(
+        new errorResponse(`bootcamp not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({});
-  } catch (error) {
-    res.status(400).json({ success: false });
+  } catch (err) {
+    next(err);
   }
 };
 
