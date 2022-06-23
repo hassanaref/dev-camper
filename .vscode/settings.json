@@ -3,6 +3,7 @@
         "Adsress",
         "bootcamp",
         "bootcamps",
-        "maxlength"
+        "maxlength",
+        "zipcode"
     ]
 }
